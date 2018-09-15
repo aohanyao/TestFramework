@@ -9,6 +9,8 @@ import com.td.framework.utils.L
 import okhttp3.CookieJar
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import retrofit2.Converter
+import retrofit2.converter.gson.CustGsonConverterFactory
 
 /**
  * Created by 江俊超 on 2017/9/26.
@@ -20,8 +22,12 @@ class MvpApplication : App() {
     override fun onCreate() {
         super.onCreate()
         BaseApi.registerConfigProvider(object : NetProvider {
+            override fun configConverterFactory(): Converter.Factory {
+                return CustGsonConverterFactory.create()
+            }
+
             override fun configInterceptors(): Array<Interceptor> {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return arrayOf()
             }
 
             override fun configHandler(): RequestHandler? {
@@ -38,7 +44,7 @@ class MvpApplication : App() {
             }
 
             override fun configCookie(): CookieJar? {
-                return  null
+                return null
             }
 
             override fun configHttps(builder: OkHttpClient.Builder?) {
